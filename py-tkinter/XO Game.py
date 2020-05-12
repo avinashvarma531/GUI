@@ -1,8 +1,13 @@
-from tkinter import *
-import time
+'''This program is written to build XO game(3X3) with tkinter''' 
 
-turn=0
-def check():
+from tkinter import *
+
+turn=0		# 0 for x's turn, 1 for o's turn
+def check():	# To check the XO board for the result, everytime an input is given
+	
+	'''Checking all three rows,columns,two diagonals and draw case.
+	Returns 'x' if winner is X player else if winner is O player returns 'o',returns 'd' for draw and returns 'None' otherwise'''
+	
 	x,o=['X']*3,['O']*3
 	l=[b1['text'],b2['text'],b3['text']]
 	if l==x or l==o:
@@ -34,7 +39,7 @@ def check():
 	del l
 	return None
 
-def manage(b):
+def manage(b):   # is called everytime a cell is chosen by either X or O
 	global turn
 	if b['text']==' ':
 		if turn==0:
@@ -55,7 +60,8 @@ def manage(b):
 			deactivateall()
 	else:
 		l2['text']='Already occuppied !'
-def deactivateall():
+
+def deactivateall():		# deactivate all cells 
 	b1['state']='disabled'
 	b2['state']='disabled'
 	b3['state']='disabled'
@@ -66,7 +72,7 @@ def deactivateall():
 	b8['state']='disabled'
 	b9['state']='disabled'
 
-def activateall():
+def activateall():		# activate all cells
 	b1['state']='normal'
 	b2['state']='normal'
 	b3['state']='normal'
@@ -77,7 +83,7 @@ def activateall():
 	b8['state']='normal'
 	b9['state']='normal'
 
-def clear():
+def clear(): 			# Clear all cells 
 	global turn
 	turn=0
 	b1['text']=' '
@@ -96,16 +102,13 @@ def clear():
 root=Tk()
 root.title('XO GAME')
 
-#im=PhotoImage(file='landscape.png')
-#im_label=Label(root,image=im)
-#im_label.pack()
-
 canvas=Canvas(root,height=500,width=600,bg='cyan')
 canvas.pack()
 
 frame=Frame(root,bd=2.5,bg='red')
 frame.place(relx=0.5,rely=0.5,relwidth=0.4,relheight=0.4,anchor='center')
 
+# creating all 9 buttons
 b1=Button(frame,bg='lightgray',text=' ',command=lambda:manage(b1),font=('Courier',20,"bold"))
 b1.place(relx=0,rely=0,relwidth=0.33,relheight=0.33)
 
@@ -133,9 +136,11 @@ b8.place(relx=0.5,rely=1,relwidth=0.33,relheight=0.33,anchor='s')
 b9=Button(frame,bg='lightgray',text=' ',command=lambda:manage(b9),font=('Courier',20,"bold"))
 b9.place(relx=1,rely=1,relwidth=0.33,relheight=0.33,anchor='se')
 
+#Button for new game option
 clb=Button(root,text='New Game',font=('Courier',10,"bold"),command=clear,bg='red',fg='cyan',cursor='spider')
 clb.place(relx=0.5,rely=0.8,anchor='center')
 
+# Labels for messages
 l1=Label(root,font=('Courier',25),text='X\'s turn',bg='cyan')
 l1.place(relx=0.5,rely=0.2,anchor='center')
 
